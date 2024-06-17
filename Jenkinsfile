@@ -18,6 +18,7 @@ pipeline {
             }
             steps {
                 sh 'ls *.json'
+                sh 'rm -r node_modules'
                 sh 'node --version'
                 sh 'npm install'
                 sh 'npm run test'
