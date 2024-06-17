@@ -1,24 +1,26 @@
-pipeline{
-    agent {
-        docker { image 'node:current-alpine' }
-    }
-    stages{
-        stage ('Test'){
-            steps{
-                sudo chown -R 111:114 "/.npm"
+pipeline {
+    agent any
+    stages {
+        stage('Check') {
+            steps {
+                sh 'ls *.json'
+            }
+        }
+        stage('Test') {
+            agent {
+                docker {
+                    image 'node:current-alpine'
+                    // Run the container on the node specified at the
+                    // top-level of the Pipeline, in the same workspace,
+                    // rather than on a new node entirely:
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'ls *.json'
+                sh 'node --version'
                 sh 'npm install'
                 sh 'npm run test'
-                echo "Etapa TEST completada"
-            }
-        }
-        stage ('Build'){
-            steps{
-                echo "Etapa BUILD no disponible"
-            }
-        }
-        stage ('Deploy'){
-            steps{
-                echo "Etapa DEPLOY no disponible"
             }
         }
     }
