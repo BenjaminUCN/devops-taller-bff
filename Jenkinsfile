@@ -14,7 +14,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'ls *.json'
-                sh 'rm -r node_modules'
+                sh 'rm -r -f node_modules'
                 sh 'node --version'
                 sh 'rm -r .npm_cache'
                 sh 'mkdir .npm_cache'
