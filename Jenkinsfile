@@ -3,7 +3,8 @@ pipeline{
     stages{
         stage ('Test'){
             steps{
-                echo "Etapa TEST no disponible"
+                sh 'npm i'
+                sh 'npm run test'
             }
         }
         stage ('Build'){
