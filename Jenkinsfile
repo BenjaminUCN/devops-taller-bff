@@ -1,10 +1,13 @@
 pipeline{
-    agent any
+    agent {
+        docker { image 'node:20.14.0-alpine3.20' }
+    }
     stages{
         stage ('Test'){
             steps{
-                sh 'npm i'
+                sh 'npm install'
                 sh 'npm run test'
+                echo "Etapa TEST completada"
             }
         }
         stage ('Build'){
