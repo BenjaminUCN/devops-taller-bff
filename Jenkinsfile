@@ -5,6 +5,7 @@ pipeline{
     stages{
         stage ('Test'){
             steps{
+                sudo chown -R 111:114 "/.npm"
                 sh 'npm install'
                 sh 'npm run test'
                 echo "Etapa TEST completada"
