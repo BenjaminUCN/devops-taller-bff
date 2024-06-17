@@ -14,11 +14,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'ls *.json'
-                sh 'mkdir npm_cache'
-                sh 'export npm_config_cache=./npm_cache'
                 sh 'rm -r node_modules'
                 sh 'node --version'
-                sh 'npm install'
+                sh 'rmdir -r .npm_cache'
+                sh 'mkdir .npm_cache'
+                sh 'npm install --cache=.npm_cache'
+                sh 'rmdir -r .npm_cache'
                 sh 'npm run test'
             }
         }
