@@ -14,6 +14,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'ls *.json'
+                sh 'mkdir npm_cache'
+                sh 'export npm_config_cache=npm_cache'
                 sh 'rm -r node_modules'
                 sh 'node --version'
                 sh 'npm install'
