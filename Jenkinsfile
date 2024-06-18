@@ -4,14 +4,15 @@ pipeline {
         APP_NAME = "benjaminucn/devops-taller-bff"
         DOCKER_IMAGE = ''
     }
-    agent {
-        docker {
-            image 'node:current-alpine'
-            args '-v .:/app -w /app'
-        }
-    }
+    agent any
     stages {
         stage('Test') {
+            agent {
+                docker {
+                    image 'node:current-alpine'
+                    args '-v .:/app -w /app'
+                }
+            }
             steps {
                 sh 'rm -r -f node_modules; rm -r -f .npm_cache; mkdir .npm_cache'
                 sh 'npm install --cache=.npm_cache; rm -r -f .npm_cache'
