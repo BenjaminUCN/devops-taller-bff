@@ -31,6 +31,7 @@ pipeline {
         }
         stage('Push image') {
             steps {
+                sh 'docker push $APP_NAME'
                 sh 'docker push $APP_NAME:$BUILD_NUMBER'
             }
         }
