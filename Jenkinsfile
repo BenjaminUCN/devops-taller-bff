@@ -21,7 +21,8 @@ pipeline {
         }
         stage ('Build docker image'){
             steps{ 
-                sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
+                sh 'docker build -t $APP_NAME .'
+                sh 'docker tag $APP_NAME $APP_NAME:$BUILD_NUMBER'
             }
         }
         stage('Login to dockerhub') {
@@ -35,9 +36,9 @@ pipeline {
                 sh 'docker push $APP_NAME:$BUILD_NUMBER'
             }
         }
-        stage ('Deploy'){
+        stage ('Deploy to kubernetes'){
             steps{
-                echo "Etapa DEPLOY no disponible"
+                sh 'kubectl apply -f deployment.yaml'
             }
         }
     }

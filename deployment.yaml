@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: bff
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: bff
@@ -13,7 +13,17 @@ spec:
         app: bff
     spec:
       containers:
-      - name: my-container
+      - name: bff
         image: benjaminucn/devops-taller-bff
+        envFrom: 
+        - secretRef:
+            name: bff-secret
         ports:
         - containerPort: 3000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "80m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"  
