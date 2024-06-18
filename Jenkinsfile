@@ -1,6 +1,6 @@
 pipeline {
     environment{
-        DOCKERHUB_CREDENTIALS = credentials(dockerhub-credentials)
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         APP_NAME = "benjaminucn/devops-taller-bff"
         DOCKER_IMAGE = ''
     }
