@@ -1,4 +1,9 @@
 pipeline {
+    environment{
+        DOCKERHUB_CREDENTIALS = credentials(dockerhub-credentials)
+        APP_NAME = "benjaminucn/devops-taller-bff"
+        DOCKER_IMAGE = ''
+    }
     agent {
         docker {
             image 'node:current-alpine'
@@ -13,9 +18,19 @@ pipeline {
                 sh 'npm run test'
             }
         }
-        stage ('Build'){
-            steps{
-                echo "Etapa BUILD no disponible"
+        stage ('Build docker image'){
+            steps{ 
+                sh 'docker build -t $IMAGE_NAME:$BUILD_NUMBER .'
+            }
+        }
+        stage('Login to dockerhub') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('Push image') {
+            steps {
+                sh 'docker push $APP_NAME:$BUILD_NUMBER'
             }
         }
         stage ('Deploy'){
