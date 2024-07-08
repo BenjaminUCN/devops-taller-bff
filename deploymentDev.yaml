@@ -17,7 +17,7 @@ spec:
         image: benjaminucn/devops-taller-bff:dev
         envFrom: 
         - secretRef:
-            name: bff-secret
+            name: bff-dev-secret
         ports:
         - containerPort: 3000
         resources:
